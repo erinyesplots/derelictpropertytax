@@ -55,9 +55,9 @@ L.control.layers(
 },
 {
     "County Boundaries": countiesLayer,
-    "Current Legislation": coverageLayer,
-    "Proposed Legislation": proposedCoverageLayer,
-    "Towns/Villages that will lose coverage": settlementsLayer
+    "Current Derelict Sites Levy Coverage": coverageLayer,
+    "Proposed Derelict Property Tax Coverage": proposedCoverageLayer,
+    "Settlements Under 2,000 Population": settlementsLayer
 },
 {
     collapsed: false
@@ -87,18 +87,28 @@ fetch('data/Under2kSettlements.geojson')
     .then(response => response.json())
     .then(data => {
 
-   L.geoJSON(data, {
+ L.geoJSON(data, {
+
     pointToLayer: function(feature, latlng) {
         return L.circleMarker(latlng, {
             radius: 4,
-            fillColor: '#FF0000',
+            fillColor: '#457b9d',
             color: '#1d3557',
             weight: 1,
             fillOpacity: 1
         });
+    },
+
+    onEachFeature: function(feature, layer) {
+
+        layer.bindPopup(
+            '<b>' + feature.properties.Settlement + '</b><br>' +
+            'Population: ' + feature.properties.Population + '<br>' +
+                   );
+
     }
+
 }).addTo(settlementsLayer);
-    });
     
 // Derelict Sites Coverage
 
@@ -108,9 +118,9 @@ fetch('data/DerelictSitesCoverage.geojson')
 
         L.geoJSON(data, {
             style: {
-                color: '#d62828',
+                color: ''#B22222',
                 weight: 1,
-                fillColor: '#d62828',
+                fillColor: '#E57373',
                 fillOpacity: 0.25
             }
         }).addTo(coverageLayer);
@@ -125,14 +135,78 @@ fetch('data/ProposedDSTaxAreas.geojson')
 
         L.geoJSON(data, {
             style: {
-                color: '#2a9d8f',
+                color: '#00796B',
                 weight: 2,
-                fillColor: '#2a9d8f',
-                fillOpacity: 0.35
+                fillColor: '#26A69A',
+                fillOpacity: 0.30
             }
         }).addTo(proposedCoverageLayer);
 
     });
+
+// Legend
+
+const legend = L.control({ position: 'bottomright' });
+
+legend.onAdd = function () {
+
+    const div = L.DomUtil.create('div', 'info legend');
+
+    div.innerHTML = `
+        <div style="
+            background: white;
+            padding: 10px;
+            border: 2px solid #666;
+            border-radius: 5px;
+            line-height: 1.6;
+            max-width: 280px;
+        ">
+            <strong>Legend</strong><br><br>
+
+            <div>
+                <span style="
+                    display:inline-block;
+                    width:18px;
+                    height:12px;
+                    background:#e57373;
+                    border:1px solid #B22222;
+                    margin-right:8px;">
+                </span>
+                Current Derelict Sites Levy Coverage
+            </div>
+
+            <div>
+                <span style="
+                    display:inline-block;
+                    width:18px;
+                    height:12px;
+                    background:#26A69A;
+                    border:1px solid #00796B;
+                    margin-right:8px;">
+                </span>
+                Proposed Derelict Property Tax Coverage
+            </div>
+
+            <div>
+                <span style="
+                    display:inline-block;
+                    width:10px;
+                    height:10px;
+                    background:#1565C0;
+                    border:1px solid white;
+                    border-radius:50%;
+                    margin-right:8px;">
+                </span>
+                Settlement under 2,000 population
+            </div>
+        </div>
+    `;
+
+    return div;
+};
+
+legend.addTo(map);
+        
 </script>
 
 </body>
