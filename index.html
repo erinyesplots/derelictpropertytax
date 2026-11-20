@@ -77,13 +77,9 @@ osm.addTo(map);
 
 // Create empty layer groups
 
-const labelsLayer = L.layerGroup().addTo(map);
-const pricesLayer = L.layerGroup().addTo(map);
-const riversLayer = L.layerGroup().addTo(map);
-const woodsLayer = L.layerGroup().addTo(map);
-const tenLayer = L.layerGroup().addTo(map);
-const twentyLayer = L.layerGroup().addTo(map);
-const thirtyLayer = L.layerGroup().addTo(map);
+const countiesLayer = L.layerGroup().addTo(map);
+const coverageLayer = L.layerGroup().addTo(map);
+const settlementsLayer = L.layerGroup().addTo(map);
 
 // Layer control
 
@@ -93,186 +89,65 @@ L.control.layers(
     "Aerial Imagery": imagery
 },
 {
-    "Property Prices": pricesLayer,
-    "Price Labels": labelsLayer,
-    "Rivers": riversLayer,
-    "Broadleaved Woodlands": woodsLayer,
-    "10 Minute Drive Time": tenLayer,
-    "20 Minute Drive Time": twentyLayer,
-    "30 Minute Drive Time": thirtyLayer
+    "Counties": countiesLayer,
+    "Derelict Sites Coverage": coverageLayer,
+    "Settlements Under 2,000 Population": settlementsLayer
 },
 {
     collapsed: false
 }
 ).addTo(map);
+// Counties
 
-// Sold 2024-2026
-
-fetch('data/PropertyPriceRegister.geojson')
+fetch('data/Counties.geojson')
     .then(response => response.json())
     .then(data => {
 
-        const prices = L.geoJSON(data, {
-
-            pointToLayer: function(feature, latlng) {
-
-                let colour = '#7b2cbf';
-
-                if (feature.properties.PriceType === 'Under Full Market') {
-                    colour = '#cbc3e3';
-                }
-
-                return L.circleMarker(latlng, {
-                    radius: 3,
-                    fillColor: colour,
-                    color: '#472C4C',
-                    weight: 1,
-                    fillOpacity: 0.9
-                });
-
-            },
-
-            onEachFeature: function(feature, layer) {
-
-                const p = feature.properties;
-
-                layer.bindPopup(
-                    "<b>Price:</b> €" + p.Price.toLocaleString() +
-                    "<br><b>Price Type:</b> " + p.PriceType +
-                    "<br><b>Address:</b> " + p.Address +
-                    "<br><b>Eircode:</b> " + p.Eircode
-                );
-
+        const counties = L.geoJSON(data, {
+            style: {
+                color: '#444444',
+                weight: 2,
+                fillOpacity: 0
             }
+        }).addTo(countiesLayer);
 
-        });
-
-      prices.addTo(pricesLayer);
-
-data.features.forEach(function(feature) {
-
-    const coords = feature.geometry.coordinates;
-
-    const labelMarker = L.marker(
-        [coords[1], coords[0]],
-        {
-            opacity: 0,
-            interactive: false
-        }
-    );
-
-    labelMarker.bindTooltip(
-        feature.properties.PriceinK.toString(),
-        {
-            permanent: true,
-            direction: 'bottom',
-            offset: [2, 2],
-            className: 'priceLabel'
-        }
-    );
-
-    labelMarker.addTo(labelsLayer);
-
-});
-
-map.fitBounds(prices.getBounds());
+        map.fitBounds(counties.getBounds());
 
     });
 
-// Rivers
+// Derelict Sites Coverage
 
-fetch('data/rivers.geojson')
+fetch('data/DerelictSitesCoverage.geojson')
     .then(response => response.json())
     .then(data => {
 
         L.geoJSON(data, {
             style: {
-                color: '#00C8FF',
-                weight: 0.5
+                color: '#d62828',
+                weight: 2,
+                fillColor: '#d62828',
+                fillOpacity: 0.25
             }
-        }).addTo(riversLayer);
+        }).addTo(coverageLayer);
 
     });
 
-// Woods
+// Settlements Under 2,000 Population
 
-fetch('data/woods.geojson')
+fetch('data/Under2kSettlements.geojson')
     .then(response => response.json())
     .then(data => {
 
         L.geoJSON(data, {
             style: {
-                color: '#006400',
-                fillColor: '#228B22',
-                fillOpacity: 0.4,
-                weight: 1
+                color: '#1d3557',
+                weight: 1,
+                fillColor: '#457b9d',
+                fillOpacity: 0.5
             }
-        }).addTo(woodsLayer);
+        }).addTo(settlementsLayer);
 
     });
-
-// 30 minutes
-
-fetch('data/thirty.geojson')
-    .then(response => response.json())
-    .then(data => {
-
-        L.geoJSON(data, {
-            style: {
-                color: ' #F25F5C',
-                fillOpacity: 0,
-                weight: 2
-            }
-        }).addTo(thirtyLayer);
-
-    });
-
-// 20 minutes
-
-fetch('data/twenty.geojson')
-    .then(response => response.json())
-    .then(data => {
-
-        L.geoJSON(data, {
-            style: {
-                color: '#FFD23F',
-                fillOpacity: 0,
-                weight: 3
-            }
-        }).addTo(twentyLayer);
-
-    });
-
-// 10 minutes
-
-fetch('data/ten.geojson')
-    .then(response => response.json())
-    .then(data => {
-
-        L.geoJSON(data, {
-            style: {
-                color: '#00A676',
-                fillOpacity: 0,
-                weight: 3
-            }
-        }).addTo(tenLayer);
-
-    });
-    const legend = L.control({position: 'bottomright'});
-
-legend.onAdd = function () {
-
-    const div = L.DomUtil.create('div', 'legend');
-
-    div.innerHTML =
-        '<b>Property Prices</b><br>' +
-        '<i style="background:#7b2cbf"></i> Market Price<br>' +
-        '<i style="background:#cbc3e3"></i> Under Full Market';
-
-    return div;
-};
-
-legend.addTo(map);
 </script>
 
 </body>
