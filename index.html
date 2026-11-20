@@ -206,6 +206,38 @@ legend.onAdd = function () {
 };
 
 legend.addTo(map);
+
+// Map Note
+
+const note = L.control({ position: 'bottomleft' });
+
+note.onAdd = function () {
+
+    const div = L.DomUtil.create('div');
+
+    div.innerHTML = `
+        <div style="
+            background: rgba(255,255,255,0.95);
+            padding: 10px;
+            border: 2px solid #666;
+            border-radius: 5px;
+            max-width: 320px;
+            font-size: 12px;
+            line-height: 1.4;
+        ">
+            <strong>Map Note</strong><br>
+Blue dots indicate towns and villages with a population below
+ 2,000 (Census 2022), which would be excluded from the proposed
+ Derelict Property Tax. Current Derelict Sites Levy coverage 
+reflects areas prescribed by local authorities, so it varies 
+significantly between counties.            
+        </div>
+    `;
+
+    return div;
+};
+
+note.addTo(map);
         
 </script>
 
