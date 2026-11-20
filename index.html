@@ -138,15 +138,17 @@ fetch('data/Under2kSettlements.geojson')
     .then(response => response.json())
     .then(data => {
 
-        L.geoJSON(data, {
-            style: {
-                color: '#1d3557',
-                weight: 1,
-                fillColor: '#457b9d',
-                fillOpacity: 0.5
-            }
-        }).addTo(settlementsLayer);
-
+   L.geoJSON(data, {
+    pointToLayer: function(feature, latlng) {
+        return L.circleMarker(latlng, {
+            radius: 5,
+            fillColor: '#457b9d',
+            color: '#1d3557',
+            weight: 1,
+            fillOpacity: 0.8
+        });
+    }
+}).addTo(settlementsLayer);
     });
 </script>
 
