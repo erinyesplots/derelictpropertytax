@@ -43,6 +43,7 @@ osm.addTo(map);
 
 const countiesLayer = L.layerGroup().addTo(map);
 const coverageLayer = L.layerGroup().addTo(map);
+const proposedCoverageLayer = L.layerGroup().addTo(map);
 const settlementsLayer = L.layerGroup().addTo(map);
 
 // Layer control
@@ -54,8 +55,9 @@ L.control.layers(
 },
 {
     "County Boundaries": countiesLayer,
-    "Existing Derelict Sites Levy applies": coverageLayer,
-    "Towns/Villages excluded from Derelict Property Tax": settlementsLayer
+    "Existing Derelict Sites Levy Coverage": coverageLayer,
+    "Proposed Derelict Sites Property Tax Coverage": proposedCoverageLayer,
+    "Towns/Villages excluded from Propsed Derelict Property Tax": settlementsLayer
 },
 {
     collapsed: false
@@ -107,7 +109,7 @@ fetch('data/DerelictSitesCoverage.geojson')
         L.geoJSON(data, {
             style: {
                 color: '#d62828',
-                weight: 2,
+                weight: 1,
                 fillColor: '#d62828',
                 fillOpacity: 0.25
             }
@@ -115,7 +117,22 @@ fetch('data/DerelictSitesCoverage.geojson')
 
     });
 
+// Proposed Property Tax Coverage
 
+fetch('data/ProposedDSTaxAreas.geojson')
+    .then(response => response.json())
+    .then(data => {
+
+        L.geoJSON(data, {
+            style: {
+                color: '#2a9d8f',
+                weight: 2,
+                fillColor: '#2a9d8f',
+                fillOpacity: 0.35
+            }
+        }).addTo(proposedCoverageLayer);
+
+    });
 </script>
 
 </body>
