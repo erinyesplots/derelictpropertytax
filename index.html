@@ -54,8 +54,8 @@ L.control.layers(
 },
 {
     "County Boundaries": countiesLayer,
-    "Areas where existing Derelict Sites Levy can be applied": coverageLayer,
-    "Towns and Villages Excluded from Derelict Property Tax": settlementsLayer
+    "Areas covered by current Derelict Sites Levy": coverageLayer,
+    "Towns and Villages excluded from proposed Derelict Property Tax": settlementsLayer
 },
 {
     collapsed: false
@@ -78,7 +78,26 @@ fetch('data/Counties.geojson')
         map.fitBounds(counties.getBounds());
 
     });
+    
+// Settlements Under 2,000 Population
 
+fetch('data/Under2kSettlements.geojson')
+    .then(response => response.json())
+    .then(data => {
+
+   L.geoJSON(data, {
+    pointToLayer: function(feature, latlng) {
+        return L.circleMarker(latlng, {
+            radius: 4,
+            fillColor: '#457b9d',
+            color: '#1d3557',
+            weight: 1,
+            fillOpacity: 1
+        });
+    }
+}).addTo(settlementsLayer);
+    });
+    
 // Derelict Sites Coverage
 
 fetch('data/DerelictSitesCoverage.geojson')
@@ -96,24 +115,7 @@ fetch('data/DerelictSitesCoverage.geojson')
 
     });
 
-// Settlements Under 2,000 Population
 
-fetch('data/Under2kSettlements.geojson')
-    .then(response => response.json())
-    .then(data => {
-
-   L.geoJSON(data, {
-    pointToLayer: function(feature, latlng) {
-        return L.circleMarker(latlng, {
-            radius: 5,
-            fillColor: '#457b9d',
-            color: '#1d3557',
-            weight: 1,
-            fillOpacity: 0.8
-        });
-    }
-}).addTo(settlementsLayer);
-    });
 </script>
 
 </body>
