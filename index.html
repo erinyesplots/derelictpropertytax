@@ -90,9 +90,7 @@ fetch('data/Counties.geojson')
             }
         }).addTo(countiesLayer);
 
-map.fitBounds(counties.getBounds(), {
-    padding: [10, 10]
-});
+map.fitBounds(counties.getBounds());
 
         setTimeout(() => {
             map.setZoom(map.getZoom() + 1);
