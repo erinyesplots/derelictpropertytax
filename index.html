@@ -190,7 +190,10 @@ legend.onAdd = function () {
 
     const div = L.DomUtil.create('div', 'info legend');
 
-    div.innerHTML = `
+const mobile = window.innerWidth < 768;
+
+div.innerHTML = `
+`
         <div style="
             background: rgba(255,255,255,0.95);
             padding: 12px;
@@ -240,20 +243,28 @@ legend.onAdd = function () {
                 Towns and villages that would lose coverage
             </div>
 
-            <hr style="margin:10px 0;">
+${mobile ? `
+${mobile ? '' : `
+<strong>Map Note</strong><br>
+Tap blue dots for settlement names and population figures.
+`
+:
+`
+<hr style="margin:10px 0;">
 
-            <strong>Map Note</strong><br>
+<strong>Map Note</strong><br>
 
-            Blue dots indicate towns and villages with a population below
-            2,000 (Census 2022) that are currently covered by the Derelict
-            Sites Levy but would be excluded from the proposed
-            Derelict Property Tax. Click the dots to view population figures. <br><br>
+Blue dots show towns and villages that are currently covered by the
+Derelict Sites Levy but would lose coverage under the proposed Derelict
+Property Tax because they have  fewer than 2,000 residents (Census 2022). 
+Click the dots for population details..<br><br>
 
-            Current Derelict Sites Levy coverage reflects areas prescribed
-            by local authorities, so it varies considerably between counties. County
-            Dublin existing coverage was not assessed.
-
-        </div>
+Current Derelict Sites Levy coverage reflects areas prescribed
+by local authorities, so it varies considerably between counties.
+Current coverage in County Dublin was not assessed.
+`
+}      
+    </div>
     `;
 
     return div;
