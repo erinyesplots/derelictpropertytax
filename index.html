@@ -146,8 +146,7 @@ fetch('data/ProposedDSTaxAreas.geojson')
         }).addTo(proposedCoverageLayer);
 
     });
-
-// Legend
+// Combined Legend and Map Note
 
 const legend = L.control({ position: 'bottomright' });
 
@@ -157,13 +156,15 @@ legend.onAdd = function () {
 
     div.innerHTML = `
         <div style="
-            background: white;
-            padding: 10px;
+            background: rgba(255,255,255,0.95);
+            padding: 12px;
             border: 2px solid #666;
             border-radius: 5px;
-            line-height: 1.6;
-            max-width: 280px;
+            line-height: 1.5;
+            max-width: 320px;
+            font-size: 12px;
         ">
+
             <strong>Legend</strong><br><br>
 
             <div>
@@ -171,14 +172,14 @@ legend.onAdd = function () {
                     display:inline-block;
                     width:18px;
                     height:12px;
-                    background:#e57373;
+                    background:#E57373;
                     border:1px solid #B22222;
                     margin-right:8px;">
                 </span>
                 Current Derelict Sites Levy Coverage
             </div>
 
-            <div>
+            <div style="margin-top:4px;">
                 <span style="
                     display:inline-block;
                     width:18px;
@@ -190,7 +191,7 @@ legend.onAdd = function () {
                 Proposed Derelict Property Tax Coverage
             </div>
 
-            <div>
+            <div style="margin-top:4px;">
                 <span style="
                     display:inline-block;
                     width:10px;
@@ -202,6 +203,18 @@ legend.onAdd = function () {
                 </span>
                 Settlement under 2,000 population
             </div>
+
+            <hr style="margin:10px 0;">
+
+            <strong>Map Note</strong><br>
+
+            Blue dots indicate towns and villages with a population below
+            2,000 (Census 2022), which would be excluded from the proposed
+            Derelict Property Tax.<br><br>
+
+            Current Derelict Sites Levy coverage reflects areas prescribed
+            by local authorities, so it varies significantly between counties.
+
         </div>
     `;
 
@@ -209,38 +222,6 @@ legend.onAdd = function () {
 };
 
 legend.addTo(map);
-
-// Map Note
-
-const note = L.control({ position: 'bottomleft' });
-
-note.onAdd = function () {
-
-    const div = L.DomUtil.create('div');
-
-    div.innerHTML = `
-        <div style="
-            background: rgba(255,255,255,0.95);
-            padding: 10px;
-            border: 2px solid #666;
-            border-radius: 5px;
-            max-width: 320px;
-            font-size: 12px;
-            line-height: 1.4;
-        ">
-            <strong>Map Note</strong><br>
-Blue dots indicate towns and villages with a population below
- 2,000 (Census 2022), which would be excluded from the proposed
- Derelict Property Tax. Current Derelict Sites Levy coverage 
-reflects areas prescribed by local authorities, so it varies 
-significantly between counties.            
-        </div>
-    `;
-
-    return div;
-};
-
-note.addTo(map);
         
 </script>
 
