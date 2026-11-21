@@ -45,7 +45,8 @@ const countiesLayer = L.layerGroup().addTo(map);
 const coverageLayer = L.layerGroup().addTo(map);
 const proposedCoverageLayer = L.layerGroup().addTo(map);
 const settlementsLayer = L.layerGroup().addTo(map);
-
+const dublinMaskLayer = L.layerGroup().addTo(map);
+    
 // Layer control
 
 L.control.layers(
@@ -169,8 +170,7 @@ fetch('data/ProposedDSTaxAreas.geojson')
 
     });
     
-const dublinMaskLayer = L.layerGroup().addTo(map);
-    
+  
 // Combined Legend and Map Note
 
 const legend = L.control({ position: 'bottomright' });
