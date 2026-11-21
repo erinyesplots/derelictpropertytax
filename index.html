@@ -92,8 +92,11 @@ fetch('data/Counties.geojson')
 
         map.fitBounds(counties.getBounds());
 
-    });
-    
+        setTimeout(() => {
+            map.setZoom(map.getZoom() + 1);
+        }, 100);
+
+    });    
 // Settlements Under 2,000 Population
 
 fetch('data/Under2kSettlements.geojson')
