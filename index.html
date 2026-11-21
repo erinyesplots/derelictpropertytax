@@ -180,8 +180,7 @@ fetch('data/ProposedDSTaxAreas.geojson')
         }).addTo(proposedCoverageLayer);
 
     });
-    
-  
+      
 // Combined Legend and Map Note
 
 const legend = L.control({ position: 'bottomright' });
@@ -193,16 +192,15 @@ legend.onAdd = function () {
 const mobile = window.innerWidth < 768;
 
 div.innerHTML = `
-        <div style="
-            background: rgba(255,255,255,0.95);
-            padding: 12px;
-            border: 2px solid #666;
-            border-radius: 5px;
-            line-height: 1.5;
-            max-width: 320px;
-            font-size: 12px;
-        ">
-
+   <div style="
+    background: rgba(255,255,255,0.95);
+    padding: ${mobile ? '8px' : '12px'};
+    border: 2px solid #666;
+    border-radius: 5px;
+    line-height: 1.4;
+    max-width: ${mobile ? '180px' : '320px'};
+    font-size: ${mobile ? '10px' : '12px'};
+">
             <strong>Legend</strong><br><br>
 
             <div>
