@@ -68,9 +68,9 @@ L.control.layers(
 },
 {
     "County Boundaries": countiesLayer,
-    "Current Derelict Sites Levy Coverage": coverageLayer,
-    "Proposed Derelict Property Tax Coverage": proposedCoverageLayer,
-    "Settlements that would lose coverage": settlementsLayer
+    "Existing Derelict Site Levy Areas": coverageLayer,
+    "Proposed Derelict Site Property Tax Areas": proposedCoverageLayer,
+    "Settlements currently covered by Levy but outside proposed Tax": settlementsLayer
 },
 {
     collapsed: window.innerWidth < 768
@@ -220,7 +220,7 @@ ${mobile ? `
             border:1px solid #B22222;
             margin-right:8px;">
         </span>
-        ${mobile ? 'Current Levy' : 'Current Derelict Sites Levy Coverage'}
+        ${mobile ? 'Current Levy' : 'Existing Derelict Site Levy Areas'}
     </div>
 
     <div style="margin-top:4px;">
@@ -232,7 +232,7 @@ ${mobile ? `
             border:1px solid #00796B;
             margin-right:8px;">
         </span>
-        ${mobile ? 'Proposed Tax' : 'Proposed Derelict Property Tax Coverage'}
+        ${mobile ? 'Proposed Tax' : 'Proposed Derelict Property Tax Areas'}
     </div>
 
     <div style="margin-top:4px;">
@@ -245,7 +245,7 @@ ${mobile ? `
             border-radius:50%;
             margin-right:8px;">
         </span>
-        ${mobile ? 'Losing coverage' : 'Towns and villages that would lose coverage'}
+        ${mobile ? 'Covered by Levy/Excluded from Tax' : 'Settlements currently covered by Levy but outside proposed Tax'}
     </div>
 
     ${mobile ? '' : `
@@ -253,15 +253,13 @@ ${mobile ? `
 
     <strong>Map Note</strong><br>
 
-    Blue dots show towns and villages that are currently covered by the
-    Derelict Sites Levy but would lose coverage under the proposed Derelict
-    Property Tax because they have fewer than 2,000 residents (Census 2022).
-    Click the dots for population details.<br><br>
+Blue dots show towns and villages currently covered by the Derelict Sites Levy but 
+outside the proposed new tax because they have fewer than 2,000 residents (Census 2022). 
+Click dots for population details. Whether these areas will lose the levy altogether
+or remain reliant on the existing levy, with its historically low collection rates, remains unclear.
 
-    Current Derelict Sites Levy coverage reflects areas prescribed
-    by local authorities, so it varies considerably between counties.
-    Current coverage in County Dublin was not assessed.
-    `}
+Existing levy coverage reflects areas prescribed by local authorities and varies considerably
+between counties. County Dublin was not assessed, given its predominantly urban character.    `}
 </div>
 `;
 return div;
