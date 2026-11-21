@@ -103,7 +103,7 @@ fetch('data/Under2kSettlements.geojson')
 
             pointToLayer: function(feature, latlng) {
                 return L.circleMarker(latlng, {
-                   radius: 4,
+                   radius: window.innerWidth < 768 ? 5 : 4,
                     fillColor: '#1565C0',
                     color: '#ffffff',
                     weight: 1,
