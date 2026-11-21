@@ -119,6 +119,8 @@ fetch('data/DerelictSitesCoverage.geojson')
     .then(data => {
 
         L.geoJSON(data, {
+           interactive: false,
+            
             style: {
                 color: '#B22222',
                 weight: 1,
@@ -136,6 +138,7 @@ fetch('data/ProposedDSTaxAreas.geojson')
     .then(data => {
 
         L.geoJSON(data, {
+          interactive: false,
             style: {
                 color: '#00796B',
                 weight: 2,
