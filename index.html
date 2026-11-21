@@ -193,7 +193,6 @@ legend.onAdd = function () {
 const mobile = window.innerWidth < 768;
 
 div.innerHTML = `
-`
         <div style="
             background: rgba(255,255,255,0.95);
             padding: 12px;
@@ -243,7 +242,6 @@ div.innerHTML = `
                 Towns and villages that would lose coverage
             </div>
 
-${mobile ? `
 ${mobile ? '' : `
 <strong>Map Note</strong><br>
 Tap blue dots for settlement names and population figures.
@@ -262,8 +260,7 @@ Click the dots for population details..<br><br>
 Current Derelict Sites Levy coverage reflects areas prescribed
 by local authorities, so it varies considerably between counties.
 Current coverage in County Dublin was not assessed.
-`
-}      
+`}      
     </div>
     `;
 
