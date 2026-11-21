@@ -102,9 +102,9 @@ fetch('data/Under2kSettlements.geojson')
 
             onEachFeature: function(feature, layer) {
 
-        layer.bindPopup(
+layer.bindPopup(
     '<strong>' + feature.properties.Settlement + '</strong><br>' +
-    'Population: ' + feature.properties.Population.toLocaleString()
+    'Population: ' + (feature.properties.Population ?? 'Not available')
 );
 
             }
