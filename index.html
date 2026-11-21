@@ -87,28 +87,31 @@ fetch('data/Under2kSettlements.geojson')
     .then(response => response.json())
     .then(data => {
 
- L.geoJSON(data, {
+        L.geoJSON(data, {
 
-    pointToLayer: function(feature, latlng) {
-        return L.circleMarker(latlng, {
-            radius: 4,
-            fillColor: '#457b9d',
-            color: '#1d3557',
-            weight: 1,
-            fillOpacity: 1
-        });
-    },
+            pointToLayer: function(feature, latlng) {
+                return L.circleMarker(latlng, {
+                    radius: 4,
+                    fillColor: '#1565C0',
+                    color: '#ffffff',
+                    weight: 1,
+                    fillOpacity: 0.9
+                });
+            },
 
-    onEachFeature: function(feature, layer) {
+            onEachFeature: function(feature, layer) {
 
-        layer.bindPopup(
-            '<b>' + feature.properties.Settlement + '</b><br>' +
-            'Population: ' + feature.properties.Population + '<br>' +
-                   );
+                layer.bindPopup(
+                    '<strong>' + feature.properties.Settlement + '</strong><br>' +
+                    'Population: ' + feature.properties.Population.toLocaleString() + '<br>' +
+                    'County: ' + feature.properties.County
+                );
 
-    }
+            }
 
-}).addTo(settlementsLayer);
+        }).addTo(settlementsLayer);
+
+    });
     
 // Derelict Sites Coverage
 
@@ -118,7 +121,7 @@ fetch('data/DerelictSitesCoverage.geojson')
 
         L.geoJSON(data, {
             style: {
-                color: ''#B22222',
+                color: '#B22222',
                 weight: 1,
                 fillColor: '#E57373',
                 fillOpacity: 0.25
