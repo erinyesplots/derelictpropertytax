@@ -201,8 +201,13 @@ width: ${mobile ? '190px' : '320px'};
     font-size: ${mobile ? '9px' : '12px'};
 ">
 
-    <strong>Legend</strong><br><br>
-
+${mobile ? `
+<details>
+<summary><strong>Legend</strong></summary>
+<br>
+` : `
+<strong>Legend</strong><br><br>
+`}
     <div>
         <span style="
             display:inline-block;
