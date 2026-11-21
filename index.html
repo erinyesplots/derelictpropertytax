@@ -57,7 +57,7 @@ L.control.layers(
     "County Boundaries": countiesLayer,
     "Current Derelict Sites Levy Coverage": coverageLayer,
     "Proposed Derelict Property Tax Coverage": proposedCoverageLayer,
-    "Settlements Under 2,000 Population that currently have coverage": settlementsLayer
+    "Settlements that would lose coverage": settlementsLayer
 },
 {
     collapsed: false
@@ -201,7 +201,7 @@ legend.onAdd = function () {
                     border-radius:50%;
                     margin-right:8px;">
                 </span>
-                Settlement under 2,000 population
+                Towns/Villages that would lose coverage
             </div>
 
             <hr style="margin:10px 0;">
@@ -209,7 +209,8 @@ legend.onAdd = function () {
             <strong>Map Note</strong><br>
 
             Blue dots indicate towns and villages with a population below
-            2,000 (Census 2022), which would be excluded from the proposed
+            2,000 (Census 2022), which are currently covered by the Derelict
+            Sites Levy but would be excluded from the proposed
             Derelict Property Tax.<br><br>
 
             Current Derelict Sites Levy coverage reflects areas prescribed
