@@ -131,6 +131,26 @@ fetch('data/DerelictSitesCoverage.geojson')
 
     });
 
+    // Dublin - not assessed area
+
+fetch('data/Dublin.geojson')
+    .then(response => response.json())
+    .then(data => {
+
+        const dublin = L.geoJSON(data, {
+            interactive: false,
+            style: {
+                color: '#808080',
+                weight: 0,
+                fillColor: '#808080',
+                fillOpacity: 0.8
+            }
+        }).addTo(dublinMaskLayer);
+
+        dublin.bringToFront();
+
+    });
+
 // Proposed Property Tax Coverage
 
 fetch('data/ProposedDSTaxAreas.geojson')
@@ -148,6 +168,9 @@ fetch('data/ProposedDSTaxAreas.geojson')
         }).addTo(proposedCoverageLayer);
 
     });
+    
+const dublinMaskLayer = L.layerGroup().addTo(map);
+    
 // Combined Legend and Map Note
 
 const legend = L.control({ position: 'bottomright' });
